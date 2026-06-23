@@ -1,24 +1,74 @@
-<div class="hero">
-  <div class="hero-content">
-    <h1>Welcome to {{ shop.name }}</h1>
-    <p>Discover our freshly baked cakes and scones</p>
-    <a href="/collections/all" class="btn btn-primary">Shop Now</a>
+<!-- Hero Section with Rotating Banner -->
+<div class="hero-section">
+  <div class="hero-banner">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ shop.name }}</h1>
+      <p class="hero-subtitle">Freshly Baked. Handcrafted Quality. Every Bite.</p>
+      <a href="/collections/all" class="btn btn-primary btn-large">Explore Our Collection</a>
+    </div>
+    <div class="hero-image-overlay"></div>
   </div>
 </div>
 
-<section class="featured-products">
+<!-- Quick Links Section -->
+<section class="quick-links">
   <div class="container">
-    <h2>Featured Products</h2>
-    <div class="products-grid">
+    <div class="quick-links-grid">
+      <div class="quick-link-card">
+        <div class="icon">🎂</div>
+        <h3>Custom Cakes</h3>
+        <p>Made to order for your special occasions</p>
+        <a href="/collections/cakes">Shop Cakes →</a>
+      </div>
+      <div class="quick-link-card">
+        <div class="icon">🥐</div>
+        <h3>Fresh Scones</h3>
+        <p>Warm, buttery scones baked fresh daily</p>
+        <a href="/collections/scones">Shop Scones →</a>
+      </div>
+      <div class="quick-link-card">
+        <div class="icon">🎉</div>
+        <h3>Special Orders</h3>
+        <p>Bulk orders for events and celebrations</p>
+        <a href="#contact">Request Quote →</a>
+      </div>
+      <div class="quick-link-card">
+        <div class="icon">🚚</div>
+        <h3>Fast Delivery</h3>
+        <p>Same-day delivery available in select areas</p>
+        <a href="#delivery">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Collections</h2>
+      <p>Our bestselling cakes and scones, loved by customers</p>
+      <a href="/collections/all" class="view-all-link">View All Products →</a>
+    </div>
+    
+    <div class="products-showcase">
       {% for product in collections.featured.products limit: 6 %}
-        <div class="product-card">
-          <div class="product-image">
-            <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+        <div class="product-card featured-product">
+          <div class="product-image-wrapper">
+            <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}" class="product-image">
+            <div class="product-overlay">
+              <a href="{{ product.url }}" class="btn btn-secondary">View Details</a>
+            </div>
           </div>
           <div class="product-info">
-            <h3>{{ product.title }}</h3>
-            <p class="price">{{ product.price | money }}</p>
-            <a href="{{ product.url }}" class="btn btn-secondary">View Details</a>
+            <h3 class="product-title">{{ product.title }}</h3>
+            {% if product.description %}
+              <p class="product-description">{{ product.description | strip_html | truncatewords: 10 }}</p>
+            {% endif %}
+            <div class="product-footer">
+              <span class="product-price">{{ product.price | money }}</span>
+              <a href="{{ product.url }}" class="add-to-cart-link">Shop Now</a>
+            </div>
           </div>
         </div>
       {% endfor %}
@@ -26,124 +76,738 @@
   </div>
 </section>
 
+<!-- Latest News / Updates Section -->
+<section class="news-section">
+  <div class="container">
+    <div class="news-wrapper">
+      <!-- Main News Feed -->
+      <div class="news-main">
+        <div class="section-header">
+          <h2>Latest Updates</h2>
+          <p>News, recipes, and behind-the-scenes stories</p>
+        </div>
+        
+        <div class="news-items">
+          {% for article in blog.articles limit: 3 %}
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="news-date">{{ article.published_at | date: "%b %d, %Y" }}</span>
+                <span class="news-category">{{ article.tags | first }}</span>
+              </div>
+              <h3 class="news-title">{{ article.title }}</h3>
+              <p class="news-excerpt">{{ article.excerpt | default: article.content | strip_html | truncatewords: 20 }}</p>
+              <a href="{{ article.url }}" class="read-more">Read More →</a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Sidebar Panels -->
+      <aside class="news-sidebar">
+        <!-- Newsletter Signup -->
+        <div class="sidebar-panel newsletter-panel">
+          <h3>Stay Updated</h3>
+          <p>Get exclusive offers, baking tips, and new product launches.</p>
+          <form class="newsletter-form" action="/contact" method="post">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit" class="btn btn-accent">Subscribe</button>
+          </form>
+        </div>
+
+        <!-- Why Choose Us -->
+        <div class="sidebar-panel highlights-panel">
+          <h3>Why Choose Khutjo</h3>
+          <ul class="highlights-list">
+            <li>✓ 100% Fresh Ingredients</li>
+            <li>✓ Handmade with Love</li>
+            <li>✓ Same-Day Delivery Available</li>
+            <li>✓ Custom Orders Welcome</li>
+            <li>✓ Award-Winning Quality</li>
+          </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div class="sidebar-panel social-panel">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="https://instagram.com" class="social-icon" title="Instagram">📸</a>
+            <a href="https://facebook.com" class="social-icon" title="Facebook">f</a>
+            <a href="https://twitter.com" class="social-icon" title="Twitter">𝕏</a>
+            <a href="https://youtube.com" class="social-icon" title="YouTube">▶</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Order for a Special Occasion?</h2>
+      <p>Let us create something amazing for your event. Custom orders with advance notice.</p>
+      <a href="#contact" class="btn btn-primary btn-large">Request Custom Order</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>What Our Customers Say</h2>
+      <p>Real feedback from happy customers</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"The cakes are absolutely divine! Fresh, moist, and delicious. I'll never buy from anywhere else."</p>
+        <p class="testimonial-author">— Sarah M.</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"Fast delivery, beautiful presentation, and the scones are to die for. Highly recommend!"</p>
+        <p class="testimonial-author">— David K.</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"Their custom cake for my daughter's birthday was perfect. The team was so accommodating!"</p>
+        <p class="testimonial-author">— Emma L.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <style>
-  .hero {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-    color: white;
-    padding: 6rem 2rem;
-    text-align: center;
-    min-height: 400px;
+  :root {
+    --primary-color: var(--color-primary, #8B4513);
+    --secondary-color: var(--color-secondary, #D2691E);
+    --accent-color: var(--color-accent, #FFB6C1);
+    --dark-bg: #1a1a1a;
+    --light-text: #f0f0f0;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    margin-bottom: 0;
   }
-  
-  .hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
-  
-  .hero-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  
-  .featured-products {
-    padding: 3rem 0;
-  }
-  
-  .featured-products h2 {
+
+  .hero-banner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: var(--color-primary);
+    color: white;
+    padding: 2rem;
   }
-  
-  .products-grid {
+
+  .hero-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.8s ease-out;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    animation: slideUp 0.8s ease-out 0.2s backwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Quick Links Section */
+  .quick-links {
+    padding: 3rem 0;
+    background: #f9f9f9;
+    margin-bottom: 3rem;
+  }
+
+  .quick-links-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
   }
-  
+
+  .quick-link-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--primary-color);
+  }
+
+  .quick-link-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .quick-link-card .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .quick-link-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .quick-link-card p {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .quick-link-card a {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .quick-link-card a:hover {
+    color: var(--primary-color);
+  }
+
+  /* Featured Section */
+  .featured-section {
+    padding: 4rem 0;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .view-all-link {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .view-all-link:hover {
+    color: var(--primary-color);
+  }
+
+  .products-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
   .product-card {
-    border: 1px solid #eee;
+    background: white;
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
   }
-  
+
   .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
   }
-  
-  .product-image {
+
+  .product-image-wrapper {
+    position: relative;
     overflow: hidden;
-    height: 250px;
+    height: 280px;
+    background: #f0f0f0;
   }
-  
-  .product-image img {
+
+  .product-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
   }
-  
-  .product-card:hover .product-image img {
-    transform: scale(1.05);
+
+  .product-card:hover .product-image {
+    transform: scale(1.1);
   }
-  
+
+  .product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+
   .product-info {
-    padding: 1rem;
+    padding: 1.5rem;
   }
-  
-  .product-info h3 {
-    margin-top: 0;
-    font-size: 1.1rem;
+
+  .product-title {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
   }
-  
-  .price {
-    font-size: 1.25rem;
+
+  .product-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+  }
+
+  .add-to-cart-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .add-to-cart-link:hover {
+    color: var(--secondary-color);
+  }
+
+  /* News Section */
+  .news-section {
+    padding: 4rem 0;
+    background: #f9f9f9;
+  }
+
+  .news-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+  }
+
+  .news-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .news-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+    transition: all 0.3s;
+  }
+
+  .news-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateX(8px);
+  }
+
+  .news-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .news-date {
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+
+  .news-category {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .news-title {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+  }
+
+  .news-excerpt {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .read-more {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .read-more:hover {
+    color: var(--primary-color);
+  }
+
+  /* Sidebar */
+  .news-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar-panel {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar-panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .sidebar-panel p {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Newsletter Form */
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .newsletter-form input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+
+  .newsletter-form input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
+  }
+
+  /* Highlights List */
+  .highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .highlights-list li {
+    padding: 0.5rem 0;
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     font-weight: bold;
-    color: var(--color-secondary);
-    margin: 0.5rem 0;
+    transition: all 0.3s;
   }
-  
+
+  .social-icon:hover {
+    background: var(--secondary-color);
+    transform: translateY(-4px);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+  }
+
+  /* Testimonials Section */
+  .testimonials-section {
+    padding: 4rem 0;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid var(--accent-color);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .testimonial-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+  }
+
+  .stars {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-text {
+    color: #333;
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .testimonial-author {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* Button Styles */
   .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
     text-decoration: none;
     border-radius: 4px;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
     cursor: pointer;
     border: none;
+    text-align: center;
   }
-  
+
+  .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
   .btn-primary {
-    background-color: var(--color-accent);
+    background-color: var(--accent-color);
     color: white;
   }
-  
+
   .btn-primary:hover {
     background-color: #ff69b4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
-  
+
   .btn-secondary {
-    background-color: var(--color-secondary);
+    background-color: var(--secondary-color);
     color: white;
     font-size: 0.9rem;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
   }
-  
+
   .btn-secondary:hover {
-    background-color: var(--color-primary);
+    background-color: var(--primary-color);
   }
-  
+
+  .btn-accent {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+
+  .btn-accent:hover {
+    background-color: var(--primary-color);
+  }
+
+  /* Container */
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-section {
+      height: 350px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .products-showcase {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .news-wrapper {
+      grid-template-columns: 1fr;
+    }
+
+    .news-sidebar {
+      order: -1;
+    }
+
+    .quick-links-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .quick-link-card {
+      padding: 1.5rem;
+    }
+
+    .cta-content h2 {
+      font-size: 1.75rem;
+    }
+
+    .cta-content p {
+      font-size: 1rem;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 1.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+    }
+
+    .products-showcase {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .quick-links-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .news-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 </style>
