@@ -6,9 +6,11 @@
   "presets": {
     "Default": {
       "colors": {
-        "primary": "#8B4513",
-        "secondary": "#D2691E",
-        "accent": "#FFB6C1"
+        "primary": "#000000",
+        "secondary": "#1a1a1a",
+        "accent": "#ffffff",
+        "text_primary": "#ffffff",
+        "text_secondary": "#e0e0e0"
       }
     }
   }
