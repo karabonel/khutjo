@@ -1,0 +1,15 @@
+{
+  "name": "Khutjo Cakes",
+  "id": 123456789,
+  "role": "main",
+  "theme_store_id": null,
+  "presets": {
+    "Default": {
+      "colors": {
+        "primary": "#8B4513",
+        "secondary": "#D2691E",
+        "accent": "#FFB6C1"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "khutjo-cakes-theme",
+  "version": "1.0.0",
+  "description": "Modern Shopify theme for selling cakes and scones",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "push": "shopify theme push",
+    "pull": "shopify theme pull"
+  },
+  "keywords": [
+    "shopify",
+    "theme",
+    "bakery",
+    "cakes",
+    "scones"
+  ],
+  "author": "Khutjo",
+  "license": "All Rights Reserved"
+}

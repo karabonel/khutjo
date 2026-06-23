@@ -1,0 +1,111 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        {% if shop.brand.logo %}
+          <a href="{{ routes.root_url }}">
+            <img src="{{ shop.brand.logo.src | image_url: width: 150 }}" alt="{{ shop.name }}">
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="shop-name">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+      <nav class="navigation">
+        <ul>
+          {% for link in linklists.main-menu.links %}
+            <li>
+              <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <div class="header-icons">
+        <a href="{{ routes.search_url }}" class="icon-link search-icon">🔍</a>
+        <a href="{{ routes.account_url }}" class="icon-link account-icon">👤</a>
+        <a href="{{ routes.cart_url }}" class="icon-link cart-icon">
+          🛒
+          {% if cart.item_count > 0 %}
+            <span class="cart-count">{{ cart.item_count }}</span>
+          {% endif %}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+  .header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .logo img {
+    max-height: 50px;
+    width: auto;
+  }
+  
+  .navigation ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+  
+  .header-icons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .icon-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+  
+  .icon-link:hover {
+    transform: scale(1.1);
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--color-accent);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+{% endstylesheet %}

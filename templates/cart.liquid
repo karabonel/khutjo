@@ -1,0 +1,123 @@
+<div class="container">
+  <h1>Shopping Cart</h1>
+  
+  {% if cart.item_count > 0 %}
+    <div class="cart-content">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart.items %}
+            <tr>
+              <td>
+                <a href="{{ item.product.url }}">{{ item.product.title }}</a>
+              </td>
+              <td>{{ item.price | money }}</td>
+              <td>
+                <form method="post" action="{{ routes.cart_change_url }}">
+                  <input type="hidden" name="id" value="{{ item.key }}">
+                  <input type="number" name="quantity" value="{{ item.quantity }}" min="0">
+                  <button type="submit">Update</button>
+                </form>
+              </td>
+              <td>{{ item.final_line_price | money }}</td>
+              <td>
+                <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0">Remove</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>{{ cart.subtotal_price | money }}</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <a href="{{ routes.checkout_url }}" class="btn btn-primary checkout-btn">Proceed to Checkout</a>
+      </div>
+    </div>
+  {% else %}
+    <p>Your cart is empty. <a href="/collections/all">Continue shopping</a></p>
+  {% endif %}
+</div>
+
+<style>
+  .cart-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .cart-table th {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  
+  .cart-table input {
+    width: 60px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .cart-table button {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cart-summary {
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    height: fit-content;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  .summary-row.total {
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-top: 2px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+</style>
