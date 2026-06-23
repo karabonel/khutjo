@@ -1,0 +1,408 @@
+<section class="categories-slideshow">
+  <div class="container">
+    <div class="section-header">
+      <h2>Shop by Category</h2>
+      <p>Explore our delicious selection of handmade treats</p>
+    </div>
+    
+    <div class="slideshow-wrapper">
+      <div class="slideshow-container">
+        <!-- Slide 1: Cakes -->
+        <div class="slide fade">
+          <div class="slide-content">
+            <div class="slide-image">
+              <img src="https://via.placeholder.com/600x400?text=Cakes" alt="Custom Cakes">
+            </div>
+            <div class="slide-info">
+              <h3>🎂 Custom Cakes</h3>
+              <p>Freshly baked, beautifully decorated custom cakes for all occasions. From classic chocolate to elegant vanilla, we create perfection.</p>
+              <a href="/collections/cakes" class="btn btn-primary">Explore Cakes</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Scones -->
+        <div class="slide fade">
+          <div class="slide-content">
+            <div class="slide-image">
+              <img src="https://via.placeholder.com/600x400?text=Scones" alt="Fresh Scones">
+            </div>
+            <div class="slide-info">
+              <h3>🥐 Fresh Scones</h3>
+              <p>Warm, buttery scones baked fresh daily. Perfect for breakfast, tea time, or any occasion. Light, flaky, and absolutely delicious.</p>
+              <a href="/collections/scones" class="btn btn-primary">Explore Scones</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Cupcakes -->
+        <div class="slide fade">
+          <div class="slide-content">
+            <div class="slide-image">
+              <img src="https://via.placeholder.com/600x400?text=Cupcakes" alt="Gourmet Cupcakes">
+            </div>
+            <div class="slide-info">
+              <h3>🧁 Gourmet Cupcakes</h3>
+              <p>Individual servings of pure indulgence. Creative flavors and stunning designs. Perfect for parties, events, or treating yourself.</p>
+              <a href="/collections/cupcakes" class="btn btn-primary">Explore Cupcakes</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Specialty Items -->
+        <div class="slide fade">
+          <div class="slide-content">
+            <div class="slide-image">
+              <img src="https://via.placeholder.com/600x400?text=Specialty" alt="Specialty Items">
+            </div>
+            <div class="slide-info">
+              <h3>✨ Specialty Items</h3>
+              <p>Unique seasonal creations and limited-edition flavors. Dietary-friendly options including gluten-free and vegan selections.</p>
+              <a href="/collections/specialty" class="btn btn-primary">Explore Specialty</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="slide-nav prev" onclick="changeSlide(-1)" aria-label="Previous slide">❮</button>
+        <button class="slide-nav next" onclick="changeSlide(1)" aria-label="Next slide">❯</button>
+      </div>
+
+      <!-- Slide Indicators -->
+      <div class="slide-indicators">
+        <span class="indicator" onclick="currentSlide(1)"></span>
+        <span class="indicator" onclick="currentSlide(2)"></span>
+        <span class="indicator" onclick="currentSlide(3)"></span>
+        <span class="indicator" onclick="currentSlide(4)"></span>
+      </div>
+
+      <!-- Auto-rotate info -->
+      <p class="slideshow-info">Auto-rotating every 5 seconds</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Categories Slideshow */
+  .categories-slideshow {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+    color: #f0f0f0;
+    margin: 3rem 0;
+  }
+
+  .categories-slideshow .section-header {
+    color: #ffffff;
+  }
+
+  .categories-slideshow .section-header h2 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .categories-slideshow .section-header p {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+  }
+
+  /* Slideshow Container */
+  .slideshow-wrapper {
+    position: relative;
+    max-width: 100%;
+    margin: 2rem auto;
+    background-color: #0d0d0d;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .slideshow-container {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Slides */
+  .slide {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .slide.fade {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .slide-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2.5rem;
+    align-items: center;
+    min-height: 450px;
+  }
+
+  .slide-image {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 350px;
+  }
+
+  .slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .slide:hover .slide-image img {
+    transform: scale(1.05);
+  }
+
+  .slide-info {
+    color: #f0f0f0;
+  }
+
+  .slide-info h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .slide-info p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: #e0e0e0;
+  }
+
+  .slide-info .btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background-color: #ffffff;
+    color: #000;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .slide-info .btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Navigation Arrows */
+  .slide-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border: none;
+    font-size: 2rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    z-index: 10;
+  }
+
+  .slide-nav:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .slide-nav.prev {
+    left: 1rem;
+  }
+
+  .slide-nav.next {
+    right: 1rem;
+  }
+
+  /* Slide Indicators */
+  .slide-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.5rem 0;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .indicator.active {
+    background-color: #ffffff;
+    width: 32px;
+    border-radius: 6px;
+  }
+
+  .indicator:hover {
+    background-color: #999;
+  }
+
+  /* Slideshow Info */
+  .slideshow-info {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #999;
+    padding-bottom: 1rem;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .slide-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      min-height: auto;
+    }
+
+    .slide-image {
+      height: 250px;
+    }
+
+    .slide-info h3 {
+      font-size: 1.5rem;
+    }
+
+    .slide-info p {
+      font-size: 0.9rem;
+    }
+
+    .slide-nav {
+      font-size: 1.5rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .slide-nav.prev {
+      left: 0.5rem;
+    }
+
+    .slide-nav.next {
+      right: 0.5rem;
+    }
+
+    .categories-slideshow .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .categories-slideshow .section-header p {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slide-content {
+      padding: 1rem;
+    }
+
+    .slide-image {
+      height: 180px;
+    }
+
+    .slide-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .slide-info p {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .slide-info .btn {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .slide-indicators {
+      gap: 0.5rem;
+      padding: 1rem 0;
+    }
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+    }
+
+    .indicator.active {
+      width: 28px;
+    }
+  }
+</style>
+
+<script>
+  let slideIndex = 1;
+  let slideshowTimer;
+
+  // Initialize slideshow
+  document.addEventListener('DOMContentLoaded', function() {
+    showSlide(slideIndex);
+    startAutoSlide();
+  });
+
+  function changeSlide(n) {
+    clearTimeout(slideshowTimer);
+    showSlide(slideIndex += n);
+    startAutoSlide();
+  }
+
+  function currentSlide(n) {
+    clearTimeout(slideshowTimer);
+    showSlide(slideIndex = n);
+    startAutoSlide();
+  }
+
+  function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.indicator');
+
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+
+    slides.forEach(slide => {
+      slide.classList.remove('fade');
+    });
+    indicators.forEach(indicator => {
+      indicator.classList.remove('active');
+    });
+
+    if (slides[slideIndex - 1]) {
+      slides[slideIndex - 1].classList.add('fade');
+    }
+    if (indicators[slideIndex - 1]) {
+      indicators[slideIndex - 1].classList.add('active');
+    }
+  }
+
+  function startAutoSlide() {
+    slideshowTimer = setTimeout(function() {
+      slideIndex++;
+      showSlide(slideIndex);
+      startAutoSlide();
+    }, 5000); // Change slide every 5 seconds
+  }
+</script>
